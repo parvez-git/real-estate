@@ -1,0 +1,138 @@
+
+/* COMMON STYLE */
+.mb0{
+    margin-bottom: 0 !important;
+}
+.uppercase{
+    text-transform: uppercase;
+}
+
+/* NAVIGATION STYLE */
+
+.dropdown-toggle > img{
+    border-radius: 50%;
+}
+
+.addbtn{
+    background-color: #303f9f;
+    color: white;
+}
+.addbtn:hover{
+    background-color: #3949ab;
+    color: #e8eaf6;
+}
+
+.btn-indigo{
+    color: white;
+    background-color: #1a237e;
+}
+
+.btn-indigo:hover{
+    color: #e8eaf6;
+    background-color: #303f9f;
+}
+
+.headerightbtn{
+    color: #fff;
+    border: 2px groove #4a60d6 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    margin-top: -12px;
+}
+
+
+/* GALLERY */
+.gallery-box{
+    overflow: hidden;
+}
+.gallery-image{
+    width: 50%;
+    float: left;
+    padding: 10px;
+    box-shadow: 1px 1px 0px #ddd;
+}
+.gallery-image-edit{
+    width: 33.3333333%;
+    float: left;
+    padding: 10px;
+    box-shadow: 1px 1px 0px #ddd;
+    position: relative;
+}
+.gallery-image-edit button{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 0 2px;
+}
+
+#gallaryimageupload{
+    display: none;
+}
+.gallery-image-single{
+    width: 33.3333333%;
+    float: left;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+
+/* COMMENT */
+.comment{
+    margin-bottom: 40px;
+}
+.comment .author-image{
+    float:left;
+    border: 3px solid #e0e0e0;
+    border-radius: 50%;
+}
+.comment .author-image span{
+    background-color:#ddd;
+    width:50px;
+    height:50px;
+    display: block;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.comment.children{
+    margin-left: 60px;
+}
+
+.comment-login {
+    border-top: 1px solid #ddd;
+}
+
+.comment .content{
+    margin-left: 70px;
+}
+.content .author-name{
+    border-bottom: 1px solid #efefee;
+    padding-bottom: 4px;
+}
+.content .author-comment{
+    padding-top: 8px;
+}
+.content .author-name span.time{
+    color: #666;
+    font-size: 13px;
+    font-style: italic;
+}
+.content .author-name span.right{
+    color: #666;
+    font-size: 13px;
+    font-style: italic;
+}
+
+.comment .comment-box {
+    margin-left: 60px;
+    margin-top: 15px;
+}
+
+.comment-box .box{
+    min-height: 80px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    padding: 10px;
+    outline: none;
+}
