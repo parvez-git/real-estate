@@ -82,7 +82,7 @@
                                     </td>
                                     <td>
                                         <span class="badge">
-                                                <i class="material-icons small left">comment</i>
+                                            <i class="material-icons small left">comment</i>
                                             {{ $post->comments_count }}
                                         </span>
                                     </td>

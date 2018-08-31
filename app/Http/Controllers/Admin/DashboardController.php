@@ -7,6 +7,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 use Carbon\Carbon;
+
+use App\Property;
+use App\Post;
+use App\Comment;
+
 use App\Setting;
 use App\Message;
 use App\User;
@@ -18,7 +23,22 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        return view('admin.dashboard');
+        $propertycount = Property::count();
+        $postcount     = Post::count();
+        $commentcount  = Comment::count();
+        $usercount     = User::count();
+
+        $properties    = Property::latest()->with('user')->take(5)->get();
+        $posts         = Post::latest()->withCount('comments')->take(5)->get();
+        $users         = User::with('role')->get();
+        $comments      = Comment::with('users')->take(5)->get();
+
+        // return $comments;
+
+        return view('admin.dashboard', compact(
+            'propertycount','postcount','commentcount','usercount',
+            'properties','posts','users','comments'
+        ));
     }
 
 

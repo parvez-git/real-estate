@@ -3,7 +3,7 @@
         <div class="container">
             <div class="nav-wrapper">
 
-                <a href="{{ route('front-home') }}" class="brand-logo">
+                <a href="{{ route('home') }}" class="brand-logo">
                     Real State
                     <i class="material-icons left">location_city</i>
                 </a>
@@ -13,7 +13,7 @@
                 
                 <ul class="right hide-on-med-and-down">
                     <li class="{{ Request::is('/') ? 'active' : '' }}">
-                        <a href="{{ route('front-home') }}">Home</a>
+                        <a href="{{ route('home') }}">Home</a>
                     </li>
 
                     <li class="{{ Request::is('property*') ? 'active' : '' }}">
@@ -84,7 +84,7 @@
     
     <ul class="sidenav" id="mobile-demo">
         <li class="{{ Request::is('/') ? 'active' : '' }}">
-            <a href="{{ route('front-home') }}">Home</a>
+            <a href="{{ route('home') }}">Home</a>
         </li>
 
         <li class="{{ Request::is('property*') ? 'active' : '' }}">

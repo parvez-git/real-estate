@@ -1,7 +1,7 @@
 <?php
 
 // FRONT-END ROUTES
-Route::get('/', 'FrontpageController@index')->name('front-home');
+Route::get('/', 'FrontpageController@index')->name('home');
 Route::get('/slider', 'FrontpageController@slider')->name('slider.index');
 
 Route::get('/search', 'FrontpageController@search')->name('search');

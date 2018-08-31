@@ -142,6 +142,9 @@
                             <li>
                                 <a href="{{ route('admin.changepassword') }}"><i class="material-icons">lock</i>Password</a>
                             </li>
+                            <li>
+                                <a href="{{ route('home') }}" target="_blank"><i class="material-icons">home</i>Visit Site</a>
+                            </li>
                             <li role="seperator" class="divider"></li>
 
                             <li>
