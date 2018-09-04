@@ -34,4 +34,9 @@ class Property extends Model
         return $this->morphMany('App\Comment', 'commentable');
     }
 
+    public function rating()
+    {
+        return $this->hasMany(Rating::class, 'property_id');
+    }
+
 }

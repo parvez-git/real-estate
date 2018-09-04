@@ -32,18 +32,27 @@
                                 </a>
 
                                 <div class="address">
-                                    <i class="small material-icons left">location_city</i>
+                                    <i class="small material-icons left">place</i>
                                     <span>{{ ucfirst($property->city) }}</span>
                                 </div>
                                 <div class="address">
-                                    <i class="small material-icons left">place</i>
+                                    <i class="small material-icons left">language</i>
                                     <span>{{ ucfirst($property->address) }}</span>
+                                </div>
+
+                                <div class="address">
+                                    <i class="small material-icons left">check_box</i>
+                                    <span>{{ ucfirst($property->type) }}</span>
+                                </div>
+                                <div class="address">
+                                    <i class="small material-icons left">check_box</i>
+                                    <span>For {{ ucfirst($property->purpose) }}</span>
                                 </div>
 
                                 <h5>
                                     &dollar;{{ $property->price }}
-                                    <small class="right">{{ ucfirst($property->type) }} for {{ $property->purpose }}</small>
-                                </h5>
+                                    <div class="right" id="propertyrating-{{$property->id}}"></div>
+                                </h5>                                
                             </div>
                             <div class="card-action property-action">
                                 <span class="btn-flat">
@@ -79,5 +88,32 @@
 @endsection
 
 @section('scripts')
-
+<script>
+    $(function(){
+        var js_properties = <?php echo json_encode($properties);?>;
+        js_properties.data.forEach(element => {
+            if(element.rating){
+                var elmt = element.rating;
+                var sum = 0;
+                for( var i = 0; i < elmt.length; i++ ){
+                    sum += parseFloat( elmt[i].rating ); 
+                }
+                var avg = sum/elmt.length;
+                if(isNaN(avg) == false){
+                    $("#propertyrating-"+element.id).rateYo({
+                        rating: avg,
+                        starWidth: "20px",
+                        readOnly: true
+                    });
+                }else{
+                    $("#propertyrating-"+element.id).rateYo({
+                        rating: 0,
+                        starWidth: "20px",
+                        readOnly: true
+                    });
+                }
+            }
+        });
+    })
+</script>
 @endsection

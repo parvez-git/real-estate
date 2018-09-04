@@ -17,6 +17,7 @@
     <!-- Styles -->
     <link href="{{ asset('frontend/css/materialize.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
 
     @yield('styles')
     
@@ -49,6 +50,7 @@
         {{-- <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script> --}}
         <script type="text/javascript" src="{{ asset('frontend/js/jquery.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('frontend/js/materialize.min.js') }}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
         {!! Toastr::message() !!}

@@ -33,11 +33,9 @@ class DashboardController extends Controller
         $users         = User::with('role')->get();
         $comments      = Comment::with('users')->take(5)->get();
 
-        // return $comments;
-
         return view('admin.dashboard', compact(
-            'propertycount','postcount','commentcount','usercount',
-            'properties','posts','users','comments'
+            'propertycount', 'postcount', 'commentcount', 'usercount',
+            'properties',    'posts',     'users',        'comments'
         ));
     }
 

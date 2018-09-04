@@ -143,7 +143,12 @@
 
                     <div class="card-no-box-shadow card">
                         <div class="p-15 grey lighten-4">
-                            <h5 class="m-0">{{ $property->comments_count }} Comments</h5>
+                            <h5 class="m-0">
+                                {{ $property->comments_count }} Comments
+                                @auth
+                                <div class="right" id="rateYo"></div>
+                                @endauth
+                            </h5>
                         </div>
                         <div class="single-narebay p-15">
 
@@ -309,12 +314,43 @@
         </div>
     </section>
 
+    {{-- RATING --}}
+    @php
+        $rating = ($rating == null) ? 0 : $rating;
+    @endphp
+
 @endsection
 
 @section('scripts')
 
     <script>
         $(function(){
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            // RATING
+            $("#rateYo").rateYo({
+                rating: <?php echo json_encode($rating); ?>,
+                halfStar: true,
+                starWidth: "26px"
+            })
+            .on("rateyo.set", function (e, data) {
+
+                var rating = data.rating;
+                var property_id = <?php echo json_encode($property->id); ?>;
+                var user_id = <?php echo json_encode( auth()->id() ); ?>;
+                
+                $.post( "{{ route('property.rating') }}", { rating: rating, property_id: property_id, user_id: user_id }, function( data ) {
+                    if(data.rating.rating){
+                        M.toast({html: 'Rating: '+ data.rating.rating + ' added successfully.', classes:'green darken-4'})
+                    }
+                });
+            });
+            
 
             // COMMENT
             $(document).on('click','span.right.replay',function(e){

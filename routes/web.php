@@ -11,6 +11,7 @@ Route::get('/property', 'PagesController@properties')->name('property');
 Route::get('/property/{id}', 'PagesController@propertieshow')->name('property.show');
 Route::post('/property/message', 'PagesController@messageAgent')->name('property.message');
 Route::post('/property/comment/{id}', 'PagesController@propertyComments')->name('property.comment');
+Route::post('/property/rating', 'PagesController@propertyRating')->name('property.rating');
 
 Route::get('/agents', 'PagesController@agents')->name('agents');
 Route::get('/agents/{id}', 'PagesController@agentshow')->name('agents.show');

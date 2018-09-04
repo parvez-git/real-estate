@@ -8,15 +8,17 @@ use App\Property;
 use App\Message;
 use App\Gallery;
 use App\Comment;
+use App\Rating;
 use App\Post;
 use App\User;
 use Auth;
+use DB;
 
 class PagesController extends Controller
 {
     public function properties()
     {
-        $properties = Property::latest()->withCount('comments')->paginate(12);
+        $properties = Property::latest()->with('rating')->withCount('comments')->paginate(12);
 
         return view('pages.properties.property', compact('properties'));
     }
@@ -27,6 +29,8 @@ class PagesController extends Controller
                             ->withCount('comments')
                             ->where('slug', $slug)
                             ->first();
+        
+        $rating = Rating::where('property_id',$property->id)->where('type','property')->avg('rating');                   
 
         $comments = Comment::with('users','children')
                            ->where('commentable_id',$property->id)
@@ -40,7 +44,7 @@ class PagesController extends Controller
                     ->where('id', '!=' , $property->id)
                     ->take(5)->get();
 
-        return view('pages.properties.single', compact('property','comments','relatedprop'));
+        return view('pages.properties.single', compact('property','comments','rating','relatedprop'));
     }
 
 
@@ -175,6 +179,24 @@ class PagesController extends Controller
         );
 
         return back();
+    }
+
+    // PROPERTY RATING
+    public function propertyRating(Request $request)
+    {
+        $rating      = $request->input('rating');
+        $property_id = $request->input('property_id');
+        $user_id     = $request->input('user_id');
+        $type        = 'property';
+
+        $rating = Rating::updateOrCreate(
+            ['user_id' => $user_id, 'property_id' => $property_id, 'type' => $type],
+            ['rating' => $rating]
+        );
+
+        if($request->ajax()){
+            return response()->json(['rating' => $rating]);
+        }
     }
     
 }
