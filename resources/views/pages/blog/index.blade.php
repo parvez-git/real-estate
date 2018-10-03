@@ -68,8 +68,55 @@
 
                     <div class="card">
                         <div class="card-content">
-                            <h3 class="card-title m-t-0">Slidebar</h3>        
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis, quis!</p>
+                            <h3 class="font-18 m-t-0 bold uppercase">Categories</h3>
+                            <ul class="collection">
+                                @foreach($categories as $category)
+                                    <li class="collection-item">
+
+                                        <a href="#" class="indigo-text text-darken-4">
+
+                                            {{ $category->name }}
+
+                                            <span class="badge indigo darken-1 white-text">{{ 1 }}</span>
+                                        </a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-content">
+                            <h3 class="font-18 m-t-0 bold uppercase">Archives</h3>
+                            <ul class="collection">
+                                @foreach($archives as $stats)
+                                    <li class="collection-item">
+
+                                        <a href="/?month={{ $stats['month'] }}&year={{ $stats['year'] }}" class="indigo-text text-darken-4">
+
+                                            {{ $stats['month'] . ' ' . $stats['year'] }}
+
+                                            <span class="badge indigo darken-1 white-text">{{ $stats['published'] }}</span>
+                                        </a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-content">
+                            <h3 class="font-18 m-t-0 bold uppercase">Tags</h3>
+
+                            @foreach($tags as $tag)
+
+                                <a href="/posts/tags/{{$tag->slug}}">
+
+                                    <span class="btn-small indigo white-text m-b-5 card-no-shadow">{{ $tag->name }}</span>
+
+                                </a>
+
+                            @endforeach
                         </div>
                     </div>
 

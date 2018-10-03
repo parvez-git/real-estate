@@ -6,6 +6,9 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 
 use App\Property;
+use App\Post;
+use App\Tag;
+use App\Category;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -22,8 +25,17 @@ class AppServiceProvider extends ServiceProvider
         $bedroomdistinct  = Property::select('bedroom')->distinct()->get();
         view()->share('bedroomdistinct', $bedroomdistinct);
 
-        $properties  = Property::latest()->take(2)->get();
-        view()->share('footerproperties', $properties);
+
+        // SHARE WITH SPECIFIC VIEW
+        view()->composer('frontend.partials.footer', function($view) {
+            $view->with('footerproperties', Property::latest()->take(2)->get());
+        });
+
+        view()->composer('pages.blog.index', function($view) {
+            $view->with('archives', Post::archives());
+            $view->with('categories', Category::all());
+            $view->with('tags', Tag::all());
+        });
     }
 
     /**
