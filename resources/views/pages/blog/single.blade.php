@@ -23,22 +23,22 @@
                             {!! $post->body !!}
                         </div>
                         <div class="card-action blog-action">
-                            <a href="#" class="btn-flat">
+                            <a href="{{ route('blog.author',$post->user->username) }}" class="btn-flat">
                                 <i class="material-icons">person</i>
                                 <span>{{$post->user->name}}</span>
                             </a>
-                            <a href="#" class="btn-flat">
+                            <a href="#" class="btn-flat disabled">
                                 <i class="material-icons">watch_later</i>
                                 <span>{{$post->created_at->diffForHumans()}}</span>
                             </a>
                             @foreach($post->categories as $key => $category)
-                                <a href="#" class="btn-flat">
+                                <a href="{{ route('blog.categories',$category->slug) }}" class="btn-flat">
                                     <i class="material-icons">folder</i>
                                     <span>{{$category->name}}</span>
                                 </a>
                             @endforeach
                             @foreach($post->tags as $key => $tag)
-                                <a href="#" class="btn-flat">
+                                <a href="{{ route('blog.tags',$tag->slug) }}" class="btn-flat">
                                     <i class="material-icons">label</i>
                                     <span>{{$tag->name}}</span>
                                 </a>
@@ -47,7 +47,7 @@
 
                     </div>
 
-                    <div class="card">
+                    <div class="card" id="comments">
                         <div class="p-15 grey lighten-4">
                             <h5 class="m-0">{{ $post->comments_count }} Comments</h5>
                         </div>
@@ -123,12 +123,9 @@
                 </div>
 
                 <div class="col s12 m4">
-                    <div class="card">
-                        <div class="card-content">
-                            <h3 class="card-title m-t-0">Slidebar</h3>        
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis, quis!</p>
-                        </div>
-                    </div>
+
+                    @include('pages.blog.sidebar')
+                    
                 </div>
 
             </div>

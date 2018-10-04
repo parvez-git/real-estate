@@ -27,14 +27,21 @@ class AppServiceProvider extends ServiceProvider
 
 
         // SHARE WITH SPECIFIC VIEW
-        view()->composer('frontend.partials.footer', function($view) {
-            $view->with('footerproperties', Property::latest()->take(2)->get());
+        view()->composer('pages.search', function($view) {
+            $view->with('bathroomdistinct', Property::select('bathroom')->distinct()->get());
         });
 
-        view()->composer('pages.blog.index', function($view) {
-            $view->with('archives', Post::archives());
-            $view->with('categories', Category::all());
-            $view->with('tags', Tag::all());
+        view()->composer('frontend.partials.footer', function($view) {
+            $view->with('footerproperties', Property::latest()->take(3)->get());
+        });
+
+        view()->composer('pages.blog.sidebar', function($view) {
+
+            $archives   = Post::archives();
+            $categories = Category::has('posts')->withCount('posts')->get();
+            $tags       = Tag::has('posts')->get();
+
+            $view->with(compact('archives','categories','tags'));
         });
     }
 

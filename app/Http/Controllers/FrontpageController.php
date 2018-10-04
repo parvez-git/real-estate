@@ -25,8 +25,7 @@ class FrontpageController extends Controller
     // SEARCH BAR (TOP)
     public function search(Request $request)
     { 
-        $bathroomdistinct = Property::select('bathroom')->distinct()->get();
-
+        
         $city     = strtolower($request->city);
         $type     = $request->type;
         $purpose  = $request->purpose;
@@ -51,14 +50,13 @@ class FrontpageController extends Controller
                                 })
                                 ->paginate(10); 
 
-        return view('pages.search', compact('properties','bathroomdistinct'));
+        return view('pages.search', compact('properties'));
     }
 
 
     // SEARCH BAR (LEFT)
     public function searchSidebar(Request $request)
     {
-        $bathroomdistinct = Property::select('bathroom')->distinct()->get();
 
         $city     = strtolower($request->city);
         $type     = $request->type;
@@ -104,7 +102,7 @@ class FrontpageController extends Controller
                                 })
                                 ->paginate(10); 
 
-        return view('pages.search', compact('properties','bathroomdistinct'));
+        return view('pages.search', compact('properties'));
     }
 
 }

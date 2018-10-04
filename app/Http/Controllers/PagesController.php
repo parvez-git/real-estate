@@ -11,6 +11,8 @@ use App\Comment;
 use App\Rating;
 use App\Post;
 use App\User;
+
+use Carbon\Carbon;
 use Auth;
 use DB;
 
@@ -68,7 +70,18 @@ class PagesController extends Controller
     // BLOG PAGE
     public function blog()
     {
-        $posts = Post::latest()->withCount('comments')->where('status',1)->paginate(10);
+        $month = request('month');
+        $year  = request('year');
+
+        $posts = Post::latest()->withCount('comments')
+                                ->when($month, function ($query, $month) {
+                                    return $query->whereMonth('created_at', Carbon::parse($month)->month);
+                                })
+                                ->when($year, function ($query, $year) {
+                                    return $query->whereYear('created_at', $year);
+                                })
+                                ->where('status',1)
+                                ->paginate(10);
 
         return view('pages.blog.index', compact('posts'));
     }
@@ -78,11 +91,74 @@ class PagesController extends Controller
         $post = Post::with('comments')->withCount('comments')->where('slug', $slug)->first(); 
 
         $comments = Comment::with('users','children')
-                           ->where('commentable_id',$post->id)
-                           ->get();
+                            ->where('commentable_id',$post->id)
+                            ->get();
 
         return view('pages.blog.single', compact('post','comments'));
     }
+
+
+    // BLOG COMMENT
+    public function blogComments(Request $request, $id)
+    {
+        $request->validate([
+            'body'  => 'required',
+        ]);
+
+        $post = Post::find($id);
+
+        $post->comments()->create(
+            [
+                'user_id'   => Auth::id(),
+                'body'      => $request->body,
+                'parent'    => $request->parent,
+                'parent_id' => $request->parent_id,
+            ]
+        );
+
+        return back();
+    }
+
+
+    // BLOG CATEGORIES
+    public function blogCategories()
+    {
+        $posts = Post::latest()->withCount(['comments','categories'])
+                                ->whereHas('categories', function($query){
+                                    $query->where('categories.slug', '=', request('slug'));
+                                })
+                                ->where('status',1)
+                                ->paginate(10);
+
+        return view('pages.blog.index', compact('posts'));
+    }
+
+    // BLOG TAGS
+    public function blogTags()
+    {
+        $posts = Post::latest()->withCount('comments')
+                                ->whereHas('tags', function($query){
+                                    $query->where('tags.slug', '=', request('slug'));
+                                })
+                                ->where('status',1)
+                                ->paginate(10);
+
+        return view('pages.blog.index', compact('posts'));
+    }
+
+    // BLOG AUTHOR
+    public function blogAuthor()
+    {
+        $posts = Post::latest()->withCount('comments')
+                                ->whereHas('user', function($query){
+                                    $query->where('username', '=', request('username'));
+                                })
+                                ->where('status',1)
+                                ->paginate(10);
+
+        return view('pages.blog.index', compact('posts'));
+    }
+
 
 
     // MESSAGE TO AGENT (SINGLE AGENT PAGE)
@@ -160,26 +236,6 @@ class PagesController extends Controller
         return back();
     }
 
-    // BLOG COMMENT
-    public function blogComments(Request $request, $id)
-    {
-        $request->validate([
-            'body'  => 'required',
-        ]);
-
-        $post = Post::find($id);
-
-        $post->comments()->create(
-            [
-                'user_id'   => Auth::id(),
-                'body'      => $request->body,
-                'parent'    => $request->parent,
-                'parent_id' => $request->parent_id,
-            ]
-        );
-
-        return back();
-    }
 
     // PROPERTY RATING
     public function propertyRating(Request $request)

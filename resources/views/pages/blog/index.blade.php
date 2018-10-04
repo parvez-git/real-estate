@@ -27,28 +27,28 @@
                                     {!! str_limit($post->body,120) !!}
                                 </div>
                                 <div class="card-action blog-action clearfix">
-                                    <a href="#" class="btn-flat">
+                                    <a href="{{ route('blog.author',$post->user->username) }}" class="btn-flat">
                                         <i class="material-icons">person</i>
                                         <span>{{$post->user->name}}</span>
                                     </a>
-                                    <a href="#" class="btn-flat">
+                                    <a href="#" class="btn-flat disabled">
                                         <i class="material-icons">watch_later</i>
                                         <span>{{$post->created_at->diffForHumans()}}</span>
                                     </a>
                                     @foreach($post->categories as $key => $category)
-                                        <a href="#" class="btn-flat">
+                                        <a href="{{ route('blog.categories',$category->slug) }}" class="btn-flat">
                                             <i class="material-icons">folder</i>
                                             <span>{{$category->name}}</span>
                                         </a>
                                     @endforeach
                                     @foreach($post->tags as $key => $tag)
-                                        <a href="#" class="btn-flat">
+                                        <a href="{{ route('blog.tags',$tag->slug) }}" class="btn-flat">
                                             <i class="material-icons">label</i>
                                             <span>{{$tag->name}}</span>
                                         </a>
                                     @endforeach
                                     
-                                    <a href="#" class="btn-flat">
+                                    <a href="{{ route('blog.show',$post->slug) . '#comments' }}" class="btn-flat">
                                         <i class="material-icons">comment</i>
                                         <span>{{$post->comments_count}}</span>
                                     </a>
@@ -66,59 +66,7 @@
 
                 <div class="col s12 m4">
 
-                    <div class="card">
-                        <div class="card-content">
-                            <h3 class="font-18 m-t-0 bold uppercase">Categories</h3>
-                            <ul class="collection">
-                                @foreach($categories as $category)
-                                    <li class="collection-item">
-
-                                        <a href="#" class="indigo-text text-darken-4">
-
-                                            {{ $category->name }}
-
-                                            <span class="badge indigo darken-1 white-text">{{ 1 }}</span>
-                                        </a>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-content">
-                            <h3 class="font-18 m-t-0 bold uppercase">Archives</h3>
-                            <ul class="collection">
-                                @foreach($archives as $stats)
-                                    <li class="collection-item">
-
-                                        <a href="/?month={{ $stats['month'] }}&year={{ $stats['year'] }}" class="indigo-text text-darken-4">
-
-                                            {{ $stats['month'] . ' ' . $stats['year'] }}
-
-                                            <span class="badge indigo darken-1 white-text">{{ $stats['published'] }}</span>
-                                        </a>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-content">
-                            <h3 class="font-18 m-t-0 bold uppercase">Tags</h3>
-
-                            @foreach($tags as $tag)
-
-                                <a href="/posts/tags/{{$tag->slug}}">
-
-                                    <span class="btn-small indigo white-text m-b-5 card-no-shadow">{{ $tag->name }}</span>
-
-                                </a>
-
-                            @endforeach
-                        </div>
-                    </div>
+                    @include('pages.blog.sidebar')
 
                 </div>
 

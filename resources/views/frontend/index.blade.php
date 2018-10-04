@@ -162,23 +162,23 @@
                             {!! str_limit($post->body,120) !!}
                         </div>
                         <div class="card-action blog-action">
-                            <a href="#" class="btn-flat">
+                            <a href="{{ route('blog.author',$post->user->username) }}" class="btn-flat">
                                 <i class="material-icons">person</i>
                                 <span>{{$post->user->name}}</span>
                             </a>
                             @foreach($post->categories as $key => $category)
-                                <a href="#" class="btn-flat">
+                                <a href="{{ route('blog.categories',$category->slug) }}" class="btn-flat">
                                     <i class="material-icons">folder</i>
                                     <span>{{$category->name}}</span>
                                 </a>
                             @endforeach
                             @foreach($post->tags as $key => $tag)
-                                <a href="#" class="btn-flat">
+                                <a href="{{ route('blog.tags',$tag->slug) }}" class="btn-flat">
                                     <i class="material-icons">label</i>
                                     <span>{{$tag->name}}</span>
                                 </a>
                             @endforeach
-                            <a href="#" class="btn-flat">
+                            <a href="#" class="btn-flat disabled">
                                 <i class="material-icons">watch_later</i>
                                 <span>{{$post->created_at->diffForHumans()}}</span>
                             </a>

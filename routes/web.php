@@ -22,6 +22,10 @@ Route::get('/blog', 'PagesController@blog')->name('blog');
 Route::get('/blog/{id}', 'PagesController@blogshow')->name('blog.show');
 Route::post('/blog/comment/{id}', 'PagesController@blogComments')->name('blog.comment');
 
+Route::get('/blog/categories/{slug}', 'PagesController@blogCategories')->name('blog.categories');
+Route::get('/blog/tags/{slug}', 'PagesController@blogTags')->name('blog.tags');
+Route::get('/blog/author/{username}', 'PagesController@blogAuthor')->name('blog.author');
+
 Route::get('/contact', 'PagesController@contact')->name('contact');
 Route::post('/contact', 'PagesController@messageContact')->name('contact.message');
 
