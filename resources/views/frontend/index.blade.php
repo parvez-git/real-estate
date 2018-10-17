@@ -7,27 +7,15 @@
     <section class="section grey lighten-4 center">
         <div class="container">
             <div class="row">
-                <div class="col s12 m4">
-                    <div class="card-panel">
-                        <i class="material-icons large indigo-text">room</i>
-                        <h5>Pick Where</h5>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus, alias.</p>
+                @foreach($services as $service)
+                    <div class="col s12 m4">
+                        <div class="card-panel">
+                            <i class="material-icons large indigo-text">{{ $service->icon }}</i>
+                            <h5>{{ $service->title }}</h5>
+                            <p>{{ $service->description }}</p>
+                        </div>
                     </div>
-                </div>
-                <div class="col s12 m4">
-                    <div class="card-panel">
-                        <i class="material-icons large indigo-text">store</i>
-                        <h5>Choose Place</h5>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus, alias.</p>
-                    </div>
-                </div>
-                <div class="col s12 m4">
-                    <div class="card-panel">
-                        <i class="material-icons large indigo-text">people</i>
-                        <h5>Find Best Agent</h5>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus, alias.</p>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </section>

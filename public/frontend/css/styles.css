@@ -386,6 +386,26 @@ li.p-0{
     max-width: 30%;
 }
 
+.city-categories {
+    margin-top: 30px;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+.city-category {
+    background-color: #1a2a71;
+    padding: 20px 10px;
+    text-align: center;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+a.city-list{
+    padding: 10px 20px;
+    display: block;
+    color: #3f51b5;
+}
+
 
 
 /**** SEARCH PROPERTY ****/
@@ -472,6 +492,7 @@ span.search-title a{
     background-repeat: no-repeat;
     padding-top: 80px !important;
     margin-bottom: 8px !important;
+    background-color: #1a2a71;
 }
 .category-bg-image > a{
     background-color: #3949ab;

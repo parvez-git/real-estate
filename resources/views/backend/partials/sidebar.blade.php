@@ -31,6 +31,13 @@
                     </a>
                 </li>
 
+                <li class="{{ Request::is('admin/services*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.services.index') }}">
+                        <i class="material-icons">view_carousel</i>
+                        <span>Services</span>
+                    </a>
+                </li>
+
                 <li class="{{ Request::is('admin/testimonials*') ? 'active' : '' }}">
                     <a href="{{ route('admin.testimonials.index') }}">
                         <i class="material-icons">view_carousel</i>

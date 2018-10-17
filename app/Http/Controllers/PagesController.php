@@ -20,9 +20,10 @@ class PagesController extends Controller
 {
     public function properties()
     {
+        $cities     = Property::select('city','city_slug')->distinct('city_slug')->get();
         $properties = Property::latest()->with('rating')->withCount('comments')->paginate(12);
 
-        return view('pages.properties.property', compact('properties'));
+        return view('pages.properties.property', compact('properties','cities'));
     }
 
     public function propertieshow($slug)
@@ -46,7 +47,9 @@ class PagesController extends Controller
                     ->where('id', '!=' , $property->id)
                     ->take(5)->get();
 
-        return view('pages.properties.single', compact('property','comments','rating','relatedprop'));
+        $cities = Property::select('city','city_slug')->distinct('city_slug')->get();
+
+        return view('pages.properties.single', compact('property','comments','rating','relatedprop','cities'));
     }
 
 
@@ -253,6 +256,18 @@ class PagesController extends Controller
         if($request->ajax()){
             return response()->json(['rating' => $rating]);
         }
+    }
+
+
+    // PROPERTY CITIES
+    public function propertyCities()
+    {
+        $cities     = Property::select('city','city_slug')->distinct('city_slug')->get();
+        $properties = Property::latest()->with('rating')->withCount('comments')
+                        ->where('city_slug', request('cityslug'))
+                        ->paginate(12);
+
+        return view('pages.properties.property', compact('properties','cities'));
     }
     
 }

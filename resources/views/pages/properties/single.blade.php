@@ -283,6 +283,21 @@
                         <div>
                             <ul class="collection with-header">
                                 <li class="collection-header grey lighten-4">
+                                    <h5 class="m-0">City List</h5>
+                                </li>
+                                @foreach($cities as $city)
+                                    <li class="collection-item p-0">
+                                        <a class="city-list" href="{{ route('property.city',$city->city_slug) }}">
+                                            <span>{{ $city->city }}</span>
+                                        </a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+
+                        <div>
+                            <ul class="collection with-header">
+                                <li class="collection-header grey lighten-4">
                                     <h5 class="m-0">Related Properties</h5>
                                 </li>
                                 @foreach($relatedprop as $property)

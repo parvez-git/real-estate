@@ -9,6 +9,7 @@ use App\Property;
 use App\Post;
 use App\Tag;
 use App\Category;
+use App\Setting;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -25,6 +26,13 @@ class AppServiceProvider extends ServiceProvider
         $bedroomdistinct  = Property::select('bedroom')->distinct()->get();
         view()->share('bedroomdistinct', $bedroomdistinct);
 
+        $cities   = Property::select('city')->distinct()->get();
+        $citylist = array();
+        foreach($cities as $city){
+            $citylist[$city['city']] = NULL;
+        }
+        view()->share('citylist', $citylist);
+
 
         // SHARE WITH SPECIFIC VIEW
         view()->composer('pages.search', function($view) {
@@ -33,6 +41,15 @@ class AppServiceProvider extends ServiceProvider
 
         view()->composer('frontend.partials.footer', function($view) {
             $view->with('footerproperties', Property::latest()->take(3)->get());
+            $view->with('footersettings', Setting::select('footer','aboutus','facebook','twitter','linkedin')->get());
+        });
+
+        view()->composer('frontend.partials.navbar', function($view) {
+            $view->with('navbarsettings', Setting::select('name')->get());
+        });
+
+        view()->composer('pages.contact', function($view) {
+            $view->with('contactsettings', Setting::select('phone','email','address')->get());
         });
 
         view()->composer('pages.blog.sidebar', function($view) {

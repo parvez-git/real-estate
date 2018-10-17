@@ -51,6 +51,7 @@
                                 <input type="text" name="address" class="form-control" value="{{ $settings->address or null }}">
                                 <label class="form-label">Address</label>
                             </div>
+                            <small class="col-red font-italic">HTML Tag allowed</small>
                         </div>
                         <div class="form-group">
                             <div class="form-line">

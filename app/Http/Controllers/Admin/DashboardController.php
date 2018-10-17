@@ -57,9 +57,9 @@ class DashboardController extends Controller
             'address'   => 'required',
             'footer'    => 'required',
             'aboutus'   => 'required',
-            'facebook'  => 'required',
-            'twitter'   => 'required',
-            'linkedin'  => 'required',
+            'facebook'  => 'required|url',
+            'twitter'   => 'required|url',
+            'linkedin'  => 'required|url',
         ]);
 
         Setting::updateOrCreate(

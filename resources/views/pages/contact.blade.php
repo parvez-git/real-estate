@@ -57,21 +57,23 @@
                         <div class="m-t-30">
                             <i class="material-icons left">call</i>
                             <h6 class="uppercase">Call us Now</h6>
-                            <h6 class="bold m-l-40">+88 6677 5544 53</h6>
+                            @if(isset($contactsettings[0]) && $contactsettings[0]['phone'])
+                                <h6 class="bold m-l-40">{{ $contactsettings[0]['phone'] }}</h6>
+                            @endif
                         </div>
                         <div class="m-t-30">
                             <i class="material-icons left">mail</i>
                             <h6 class="uppercase">Email Address</h6>
-                            <h6 class="bold m-l-40">support@website.com</h6>
+                            @if(isset($contactsettings[0]) && $contactsettings[0]['email'])
+                                <h6 class="bold m-l-40">{{ $contactsettings[0]['email'] }}</h6>
+                            @endif
                         </div>
                         <div class="m-t-30">
                             <i class="material-icons left">map</i>
                             <h6 class="uppercase">Address</h6>
-                            <h6 class="bold m-l-40">
-                                143 Peacock Springs Trl <br>
-                                Orlando FL <br>
-                                USA
-                            </h6>
+                            @if(isset($contactsettings[0]) && $contactsettings[0]['address'])
+                                <h6 class="bold m-l-40">{!! $contactsettings[0]['address'] !!}</h6>
+                            @endif
                         </div>
                     </div>
                 </div>

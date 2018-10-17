@@ -80,14 +80,9 @@
                 indicators: true,
             });
 
+            var city_list =<?php echo json_encode($citylist);?>;
             $('input.autocomplete').autocomplete({
-                data: {
-                    "Dhaka": null,
-                    "Pabna": null,
-                    "Sirajgong": null,
-                    "Savar": null,
-                    "New York": null,
-                },
+                data: city_list
             });
 
             $(".dropdown-trigger").dropdown({

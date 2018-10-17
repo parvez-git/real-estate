@@ -3,7 +3,11 @@
         <div class="row">
             <div class="col m4 s12">
                 <h5 class="white-text uppercase">About Us</h5>
-                <p class="grey-text text-lighten-4">Real estate company description goes here. You can use rows and columns here to organize your footer content.</p>
+                @if(isset($footersettings[0]) && $footersettings[0]['aboutus'])
+                    <p class="grey-text text-lighten-4">{{ $footersettings[0]['aboutus'] }}</p>
+                @else
+                    <p class="grey-text text-lighten-4">Real estate company description goes here.</p>
+                @endif
             </div>
             <div class="col m6 s12">
                 <h5 class="white-text uppercase">Recent Properties</h5>
@@ -34,6 +38,10 @@
                         <a href="{{ route('agents') }}" class="grey-text text-lighten-3">Agents</a>
                     </li>
 
+                    <li class="uppercase {{ Request::is('gallery*') ? 'underline' : '' }}">
+                        <a href="{{ route('gallery') }}" class="grey-text text-lighten-3">Gallery</a>
+                    </li>
+
                     <li class="uppercase {{ Request::is('blog*') ? 'underline' : '' }}">
                         <a href="{{ route('blog') }}" class="grey-text text-lighten-3">Blog</a>
                     </li>
@@ -47,8 +55,22 @@
     </div>
     <div class="footer-copyright">
         <div class="container">
-            © 2018 Developer Canvas Studio.
-            <a class="grey-text text-lighten-4 right" href="#!">Social Links</a>
+            @if(isset($footersettings[0]) && $footersettings[0]['footer'])
+                {{ $footersettings[0]['footer'] }}
+            @else
+                © 2018 Developer Canvas Studio.
+            @endif
+
+            @if(isset($footersettings[0]) && $footersettings[0]['facebook'])
+                <a class="grey-text text-lighten-4 right" href="{{ $footersettings[0]['facebook'] }}" target="_blank">FACEBOOK</a>
+            @endif
+            @if(isset($footersettings[0]) && $footersettings[0]['twitter'])
+                <a class="grey-text text-lighten-4 right m-r-10" href="{{ $footersettings[0]['twitter'] }}" target="_blank">TWITTER</a>
+            @endif
+            @if(isset($footersettings[0]) && $footersettings[0]['linkedin'])
+                <a class="grey-text text-lighten-4 right m-r-10" href="{{ $footersettings[0]['linkedin'] }}" target="_blank">LINKEDIN</a>
+            @endif
+
         </div>
     </div>
 </footer>

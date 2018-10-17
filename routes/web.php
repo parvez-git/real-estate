@@ -12,6 +12,7 @@ Route::get('/property/{id}', 'PagesController@propertieshow')->name('property.sh
 Route::post('/property/message', 'PagesController@messageAgent')->name('property.message');
 Route::post('/property/comment/{id}', 'PagesController@propertyComments')->name('property.comment');
 Route::post('/property/rating', 'PagesController@propertyRating')->name('property.rating');
+Route::get('/property/city/{cityslug}', 'PagesController@propertyCities')->name('property.city');
 
 Route::get('/agents', 'PagesController@agents')->name('agents');
 Route::get('/agents/{id}', 'PagesController@agentshow')->name('agents.show');
@@ -43,6 +44,7 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin','middleware'=>['auth','admi
     Route::post('properties/gallery/delete','PropertyController@galleryImageDelete')->name('gallery-delete');
 
     Route::resource('sliders','SliderController');
+    Route::resource('services','ServiceController');
     Route::resource('testimonials','TestimonialController');
 
     Route::get('galleries/album','GalleryController@album')->name('album');
