@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 use App\Property;
 use App\Message;
@@ -96,6 +97,12 @@ class PagesController extends Controller
         $comments = Comment::with('users','children')
                             ->where('commentable_id',$post->id)
                             ->get();
+
+        $blogkey = 'blog-' . $post->id;
+        if(!Session::has($blogkey)){
+            $post->increment('view_count');
+            Session::put($blogkey,1);
+        }
 
         return view('pages.blog.single', compact('post','comments'));
     }

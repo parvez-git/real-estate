@@ -43,6 +43,11 @@
                                     <span>{{$tag->name}}</span>
                                 </a>
                             @endforeach
+
+                            <a href="#" class="btn-flat disabled">
+                                <i class="material-icons">visibility</i>
+                                <span>{{$post->view_count}}</span>
+                            </a>
                         </div>
 
                     </div>

@@ -1,5 +1,20 @@
 <div class="card">
     <div class="card-content">
+        <h3 class="font-18 m-t-0 bold uppercase">Popular Posts</h3>
+        <ul class="collection">
+            @foreach($popularposts as $post)
+                <li class="collection-item">
+                    <a href="{{ route('blog.show',$post->slug) }}" class="indigo-text text-darken-4">
+                        <span class="truncate tooltipped" data-position="bottom" data-tooltip="{{ $post->title }}">{{ $post->title }}</span>
+                    </a>
+                </li>
+            @endforeach
+        </ul>
+    </div>
+</div>
+    
+<div class="card">
+    <div class="card-content">
         <h3 class="font-18 m-t-0 bold uppercase">Categories</h3>
         <ul>
             @foreach($categories as $category)

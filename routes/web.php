@@ -59,6 +59,11 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin','middleware'=>['auth','admi
     Route::post('profile','DashboardController@profileUpdate')->name('profile.update');
 
     Route::get('message','DashboardController@message')->name('message');
+    Route::get('message/read/{id}','DashboardController@messageRead')->name('message.read');
+    Route::get('message/replay/{id}','DashboardController@messageReplay')->name('message.replay');
+    Route::post('message/replay','DashboardController@messageSend')->name('message.send');
+    Route::post('message/readunread','DashboardController@messageReadUnread')->name('message.readunread');
+    Route::delete('message/delete/{id}','DashboardController@messageDelete')->name('messages.destroy');
 
     Route::get('changepassword','DashboardController@changePassword')->name('changepassword');
     Route::post('changepassword','DashboardController@changePasswordUpdate')->name('changepassword.update');
@@ -70,11 +75,17 @@ Route::group(['prefix'=>'agent','namespace'=>'Agent','middleware'=>['auth','agen
     Route::get('dashboard','DashboardController@index')->name('dashboard');
     Route::get('profile','DashboardController@profile')->name('profile');
     Route::post('profile','DashboardController@profileUpdate')->name('profile.update');
-    Route::get('message','DashboardController@message')->name('message');
     Route::get('changepassword','DashboardController@changePassword')->name('changepassword');
     Route::post('changepassword','DashboardController@changePasswordUpdate')->name('changepassword.update');
     Route::resource('properties','PropertyController');
     Route::post('properties/gallery/delete','PropertyController@galleryImageDelete')->name('gallery-delete');
+
+    Route::get('message','DashboardController@message')->name('message');
+    Route::get('message/read/{id}','DashboardController@messageRead')->name('message.read');
+    Route::get('message/replay/{id}','DashboardController@messageReplay')->name('message.replay');
+    Route::post('message/replay','DashboardController@messageSend')->name('message.send');
+    Route::post('message/readunread','DashboardController@messageReadUnread')->name('message.readunread');
+    Route::delete('message/delete/{id}','DashboardController@messageDelete')->name('messages.destroy');
 
 });
 
@@ -85,5 +96,12 @@ Route::group(['prefix'=>'user','namespace'=>'User','middleware'=>['auth','user']
     Route::post('profile','DashboardController@profileUpdate')->name('profile.update');
     Route::get('changepassword','DashboardController@changePassword')->name('changepassword');
     Route::post('changepassword','DashboardController@changePasswordUpdate')->name('changepassword.update');
+
+    Route::get('message','DashboardController@message')->name('message');
+    Route::get('message/read/{id}','DashboardController@messageRead')->name('message.read');
+    Route::get('message/replay/{id}','DashboardController@messageReplay')->name('message.replay');
+    Route::post('message/replay','DashboardController@messageSend')->name('message.send');
+    Route::post('message/readunread','DashboardController@messageReadUnread')->name('message.readunread');
+    Route::delete('message/delete/{id}','DashboardController@messageDelete')->name('messages.destroy');
 
 });

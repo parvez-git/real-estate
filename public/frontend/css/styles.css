@@ -551,6 +551,19 @@ span.search-title a{
     text-decoration: underline;
 }
 
+.read-message{
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+.read-message span{
+    font-weight: bold;
+}
+.read-message p{
+    background-color: #f9f9f9;
+    padding: 12px;
+    margin-top: 5px;
+}
+
 
 /* AGENT DASHBOARD AND OTHERS */
 

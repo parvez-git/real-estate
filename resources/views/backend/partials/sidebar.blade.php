@@ -33,7 +33,7 @@
 
                 <li class="{{ Request::is('admin/services*') ? 'active' : '' }}">
                     <a href="{{ route('admin.services.index') }}">
-                        <i class="material-icons">view_carousel</i>
+                        <i class="material-icons">wb_sunny</i>
                         <span>Services</span>
                     </a>
                 </li>
@@ -94,7 +94,7 @@
                                 <span>Profile</span>
                             </a>
                         </li>
-                        <li class="{{ Request::is('admin/message') ? 'active' : '' }}">
+                        <li class="{{ Request::is('admin/message*') ? 'active' : '' }}">
                             <a href="{{ route('admin.message') }}">
                                 <span>Message</span>
                             </a>

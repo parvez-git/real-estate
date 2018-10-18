@@ -23,6 +23,12 @@
                 <span>Profile</span>
             </li>
         </a>
+        <a href="{{ route('user.message') }}">
+            <li class="collection-item {{ Request::is('user/message*') ? 'active' : '' }}">
+                <i class="material-icons left">mail</i>
+                <span>Messages</span>
+            </li>
+        </a>
         <a href="{{ route('user.changepassword') }}">
             <li class="collection-item {{ Request::is('user/changepassword') ? 'active' : '' }}">
                 <i class="material-icons left">lock</i>

@@ -21,7 +21,7 @@
                                             <img src="{{Storage::url('posts/'.$post->image)}}" alt="{{$post->title}}">
                                         </div>
                                     @endif
-                                    <span class="card-title" title="{{$post->title}}">
+                                    <span class="card-title">
                                         <a href="{{ route('blog.show',$post->slug) }}">{{ $post->title }}</a>
                                     </span>
                                     {!! str_limit($post->body,120) !!}
@@ -51,6 +51,10 @@
                                     <a href="{{ route('blog.show',$post->slug) . '#comments' }}" class="btn-flat">
                                         <i class="material-icons">comment</i>
                                         <span>{{$post->comments_count}}</span>
+                                    </a>
+                                    <a href="#" class="btn-flat disabled">
+                                        <i class="material-icons">visibility</i>
+                                        <span>{{$post->view_count}}</span>
                                     </a>
                                 </div>
                             </div>

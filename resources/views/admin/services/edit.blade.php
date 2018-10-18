@@ -73,23 +73,4 @@
 
 @push('scripts')
 
-<script>
-    function showImage(fileInput,imgID){
-        if (fileInput.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function(e){
-                $(imgID).attr('src',e.target.result);
-                $(imgID).attr('alt',fileInput.files[0].name);
-            }
-            reader.readAsDataURL(fileInput.files[0]);
-        }
-    }
-    $('#testimonial-image-btn-edit').on('click', function(){
-        $('#testimonial-image-input-edit').click();
-    });
-    $('#testimonial-image-input-edit').on('change', function(){
-        showImage(this, '#testimonial-imgsrc-edit');
-    });
-</script>
-
 @endpush

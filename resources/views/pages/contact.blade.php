@@ -18,17 +18,39 @@
                             @csrf
                             <input type="hidden" name="agent_id" value="1">
 
-                            <div class="input-field col s12">
-                                <i class="material-icons prefix">person</i>
-                                <input id="name" name="name" type="text" class="validate">
-                                <label for="name">Name</label>
-                            </div>
+                            @auth
+                                <input type="hidden" name="user_id" value="{{ auth()->id() }}">
+                            @endauth
 
-                            <div class="input-field col s12">
-                                <i class="material-icons prefix">mail</i>
-                                <input id="email" name="email" type="email" class="validate">
-                                <label for="email">Email</label>
-                            </div>
+                            @auth
+                                <div class="input-field col s12">
+                                    <i class="material-icons prefix">person</i>
+                                    <input id="name" name="name" type="text" class="validate" value="{{ auth()->user()->name }}" readonly>
+                                    <label for="name">Name</label>
+                                </div>
+                            @endauth
+                            @guest
+                                <div class="input-field col s12">
+                                    <i class="material-icons prefix">person</i>
+                                    <input id="name" name="name" type="text" class="validate">
+                                    <label for="name">Name</label>
+                                </div>
+                            @endguest
+
+                            @auth
+                                <div class="input-field col s12">
+                                    <i class="material-icons prefix">mail</i>
+                                    <input id="email" name="email" type="email" class="validate" value="{{ auth()->user()->email }}" readonly>
+                                    <label for="email">Email</label>
+                                </div>
+                            @endauth
+                            @guest
+                                <div class="input-field col s12">
+                                    <i class="material-icons prefix">mail</i>
+                                    <input id="email" name="email" type="email" class="validate">
+                                    <label for="email">Email</label>
+                                </div>
+                            @endguest
 
                             <div class="input-field col s12">
                                 <i class="material-icons prefix">phone</i>

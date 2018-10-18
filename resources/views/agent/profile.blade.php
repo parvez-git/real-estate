@@ -40,7 +40,7 @@
                                 <div class="input-field col s6">
                                     <i class="material-icons prefix">email</i>
                                     <input id="email" name="email" type="email" value="{{ $profile->email }}" class="validate">
-                                    <label for="username">Email</label>
+                                    <label for="email">Email</label>
                                 </div>
                                 <div class="file-field input-field col s6">
                                     <div class="btn indigo">

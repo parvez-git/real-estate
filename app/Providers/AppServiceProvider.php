@@ -54,11 +54,12 @@ class AppServiceProvider extends ServiceProvider
 
         view()->composer('pages.blog.sidebar', function($view) {
 
-            $archives   = Post::archives();
-            $categories = Category::has('posts')->withCount('posts')->get();
-            $tags       = Tag::has('posts')->get();
+            $archives     = Post::archives();
+            $categories   = Category::has('posts')->withCount('posts')->get();
+            $tags         = Tag::has('posts')->get();
+            $popularposts = Post::orderBy('view_count','desc')->take(5)->get();
 
-            $view->with(compact('archives','categories','tags'));
+            $view->with(compact('archives','categories','tags','popularposts'));
         });
     }
 

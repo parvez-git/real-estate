@@ -73,15 +73,8 @@ class DashboardController extends Controller
         return back();
     }
 
+
     
-    public function message()
-    {
-        $messages = Message::latest()->where('agent_id', Auth::id())->paginate(10);
-
-        return view('agent.messages',compact('messages'));
-    }
-
-
     public function changePassword()
     {
         return view('agent.changepassword');
@@ -112,6 +105,75 @@ class DashboardController extends Controller
 
         Toastr::success('message', 'Password changed successfully.');
         return redirect()->back();
+    }
+
+
+
+    // MESSAGE
+    public function message()
+    {
+        $messages = Message::latest()->where('agent_id', Auth::id())->paginate(10);
+
+        return view('agent.messages.index',compact('messages'));
+    }
+
+    public function messageRead($id)
+    {
+        $message = Message::findOrFail($id);
+
+        return view('agent.messages.read',compact('message'));
+    }
+
+    public function messageReplay($id)
+    {
+        $message = Message::findOrFail($id);
+
+        return view('agent.messages.replay',compact('message'));
+    }
+
+    public function messageSend(Request $request)
+    {
+        $request->validate([
+            'agent_id'  => 'required',
+            'user_id'   => 'required',
+            'name'      => 'required',
+            'email'     => 'required',
+            'phone'     => 'required',
+            'message'   => 'required'
+        ]);
+
+        Message::create($request->all());
+
+        Toastr::success('message', 'Message send successfully.');
+        return back();
+
+    }
+
+    public function messageReadUnread(Request $request)
+    {
+        $status = $request->status;
+        $msgid  = $request->messageid;
+
+        if($status){
+            $status = 0;
+        }else{
+            $status = 1;
+        }
+
+        $message = Message::findOrFail($msgid);
+        $message->status = $status;
+        $message->save();
+
+        return redirect()->route('agent.message');
+    }
+
+    public function messageDelete($id)
+    {
+        $message = Message::findOrFail($id);
+        $message->delete();
+
+        Toastr::success('message', 'Message deleted successfully.');
+        return back();
     }
 
 }
