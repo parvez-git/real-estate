@@ -41,22 +41,23 @@
                     <h2>{{ $post->comments_count }} Comments</h2>
                 </div>
                 <div class="body">
-                    @foreach($comments as $comment)
-                        @if($comment->parent == 0)
-                        <div class="comment">
-                            <div class="author-image">
-                                <span style="background-image:url({{ Storage::url('users/'.$comment->users->image) }});"></span>
-                            </div>
-                            <div class="content">
-                                <div class="author-name">
-                                    <strong>{{ $comment->users->name }}</strong>
-                                    <span class="right">{{ $comment->created_at->diffForHumans() }}</span>
+                    @foreach($post->comments as $comment)
+                    
+                        @if($comment->parent_id == NULL)
+                            <div class="comment">
+                                <div class="author-image">
+                                    <span style="background-image:url({{ Storage::url('users/'.$comment->users->image) }});"></span>
                                 </div>
-                                <div class="author-comment">
-                                    {{ $comment->body }}
+                                <div class="content">
+                                    <div class="author-name">
+                                        <strong>{{ $comment->users->name }}</strong>
+                                        <span class="right">{{ $comment->created_at->diffForHumans() }}</span>
+                                    </div>
+                                    <div class="author-comment">
+                                        {{ $comment->body }}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                         @endif
 
                         @foreach($comment->children as $comment)

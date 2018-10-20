@@ -143,11 +143,7 @@ class PropertyController extends Controller
     {
         $property = Property::withCount('comments')->find($property->id);
 
-        $comments = Comment::with('users','children')
-                            ->where('commentable_id',$property->id)
-                            ->get();
-
-        return view('admin.properties.show',compact('property','comments'));
+        return view('admin.properties.show',compact('property'));
     }
 
 
@@ -287,7 +283,7 @@ class PropertyController extends Controller
             Storage::disk('public')->delete('property/'.$property->floor_plan);
         }
 
-        $property->delete();
+        // $property->delete();
         
         $galleries = $property->gallery;
         if($galleries)
@@ -301,7 +297,8 @@ class PropertyController extends Controller
         }
 
         $property->features()->detach();
-        
+        $property->comments()->delete();
+
         Toastr::success('message', 'Property deleted successfully.');
         return back();
     }

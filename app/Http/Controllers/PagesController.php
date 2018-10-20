@@ -29,18 +29,14 @@ class PagesController extends Controller
 
     public function propertieshow($slug)
     {
-        $property = Property::with('features','gallery','user')
+        $property = Property::with('features','gallery','user','comments')
                             ->withCount('comments')
                             ->where('slug', $slug)
                             ->first();
-        
+
         $rating = Rating::where('property_id',$property->id)->where('type','property')->avg('rating');                   
 
-        $comments = Comment::with('users','children')
-                           ->where('commentable_id',$property->id)
-                           ->get();
-
-        $relatedprop = Property::latest()
+        $relatedproperty = Property::latest()
                     ->where('purpose', $property->purpose)
                     ->where('type', $property->type)
                     ->where('bedroom', $property->bedroom)
@@ -50,7 +46,7 @@ class PagesController extends Controller
 
         $cities = Property::select('city','city_slug')->distinct('city_slug')->get();
 
-        return view('pages.properties.single', compact('property','comments','rating','relatedprop','cities'));
+        return view('pages.properties.single', compact('property','rating','relatedproperty','cities'));
     }
 
 
@@ -94,17 +90,13 @@ class PagesController extends Controller
     {
         $post = Post::with('comments')->withCount('comments')->where('slug', $slug)->first(); 
 
-        $comments = Comment::with('users','children')
-                            ->where('commentable_id',$post->id)
-                            ->get();
-
         $blogkey = 'blog-' . $post->id;
         if(!Session::has($blogkey)){
             $post->increment('view_count');
             Session::put($blogkey,1);
         }
 
-        return view('pages.blog.single', compact('post','comments'));
+        return view('pages.blog.single', compact('post'));
     }
 
 

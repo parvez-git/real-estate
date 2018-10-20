@@ -86,11 +86,7 @@ class PostController extends Controller
     {
         $post = Post::withCount('comments')->find($post->id);
 
-        $comments = Comment::with('users','children')
-                            ->where('commentable_id',$post->id)
-                            ->get();
-
-        return view('admin.posts.show',compact('post','comments'));
+        return view('admin.posts.show',compact('post'));
     }
 
 
@@ -145,6 +141,8 @@ class PostController extends Controller
         $post->body = $request->body;
         if(isset($request->status)){
             $post->status = true;
+        }else{
+            $post->status = false;
         }
         $post->is_approved = true;
         $post->save();
@@ -168,6 +166,7 @@ class PostController extends Controller
         $post->delete();
         $post->categories()->detach();
         $post->tags()->detach();
+        $post->comments()->delete();
 
         Toastr::success('message', 'Post deleted successfully.');
         return back();

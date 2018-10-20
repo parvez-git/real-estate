@@ -109,7 +109,9 @@
         $categories = [];
     @endphp
     @foreach($post->categories as $category)
-        {{$categories[]=$category->id}}
+        @php 
+            $categories[] = $category->id;
+        @endphp
     @endforeach
 
 @endsection

@@ -58,32 +58,10 @@
                         </div>
                         <div class="single-narebay p-15">
 
-                            @foreach($comments as $comment)
-                                @if($comment->parent == 0)
-                                <div class="comment">
-                                    <div class="author-image">
-                                        <span style="background-image:url({{ Storage::url('users/'.$comment->users->image) }});"></span>
-                                    </div>
-                                    <div class="content">
-                                        <div class="author-name">
-                                            <strong>{{ $comment->users->name }}</strong>
-                                            <span class="time">{{ $comment->created_at->diffForHumans() }}</span>
+                            @foreach($post->comments as $comment)
 
-                                            @auth
-                                                <span class="right replay" data-commentid="{{ $comment->id }}">Replay</span>
-                                            @endauth
-
-                                        </div>
-                                        <div class="author-comment">
-                                            {{ $comment->body }}
-                                        </div>
-                                    </div>
-                                    <div id="comment-{{$comment->id}}"></div>
-                                </div>
-                                @endif
-
-                                @foreach($comment->children as $comment)
-                                    <div class="comment children">
+                                @if($comment->parent_id == null)
+                                    <div class="comment">
                                         <div class="author-image">
                                             <span style="background-image:url({{ Storage::url('users/'.$comment->users->image) }});"></span>
                                         </div>
@@ -91,6 +69,11 @@
                                             <div class="author-name">
                                                 <strong>{{ $comment->users->name }}</strong>
                                                 <span class="time">{{ $comment->created_at->diffForHumans() }}</span>
+
+                                                @auth
+                                                    <span class="right replay" data-commentid="{{ $comment->id }}">Replay</span>
+                                                @endauth
+
                                             </div>
                                             <div class="author-comment">
                                                 {{ $comment->body }}
@@ -98,7 +81,26 @@
                                         </div>
                                         <div id="comment-{{$comment->id}}"></div>
                                     </div>
-                                @endforeach
+                                @endif
+
+                                @if($comment->children->count() > 0)
+                                    @foreach($comment->children as $comment)
+                                        <div class="comment children">
+                                            <div class="author-image">
+                                                <span style="background-image:url({{ Storage::url('users/'.$comment->users->image) }});"></span>
+                                            </div>
+                                            <div class="content">
+                                                <div class="author-name">
+                                                    <strong>{{ $comment->users->name }}</strong>
+                                                    <span class="time">{{ $comment->created_at->diffForHumans() }}</span>
+                                                </div>
+                                                <div class="author-comment">
+                                                    {{ $comment->body }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                @endif
 
                             @endforeach
 

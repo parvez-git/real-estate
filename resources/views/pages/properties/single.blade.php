@@ -56,7 +56,7 @@
             <div class="row">
                 <div class="col s12 m8">
                     <div class="single-title">
-                        <h4 class="single-title" title="{{ $property->title }}">{{ $property->title }}</h4>
+                        <h4 class="single-title">{{ $property->title }}</h4>
                     </div>
 
                     <div class="address m-b-30">
@@ -152,28 +152,29 @@
                         </div>
                         <div class="single-narebay p-15">
 
-                            @foreach($comments as $comment)
-                                @if($comment->parent == 0)
-                                <div class="comment">
-                                    <div class="author-image">
-                                        <span style="background-image:url({{ Storage::url('users/'.$comment->users->image) }});"></span>
-                                    </div>
-                                    <div class="content">
-                                        <div class="author-name">
-                                            <strong>{{ $comment->users->name }}</strong>
-                                            <span class="time">{{ $comment->created_at->diffForHumans() }}</span>
+                            @foreach($property->comments as $comment)
 
-                                            @auth
-                                                <span class="right replay" data-commentid="{{ $comment->id }}">Replay</span>
-                                            @endauth
+                                @if($comment->parent_id == NULL)
+                                    <div class="comment">
+                                        <div class="author-image">
+                                            <span style="background-image:url({{ Storage::url('users/'.$comment->users->image) }});"></span>
+                                        </div>
+                                        <div class="content">
+                                            <div class="author-name">
+                                                <strong>{{ $comment->users->name }}</strong>
+                                                <span class="time">{{ $comment->created_at->diffForHumans() }}</span>
 
+                                                @auth
+                                                    <span id="commentreplay" class="right replay" data-commentid="{{ $comment->id }}">Replay</span>
+                                                @endauth
+
+                                            </div>
+                                            <div class="author-comment">
+                                                {{ $comment->body }}
+                                            </div>
                                         </div>
-                                        <div class="author-comment">
-                                            {{ $comment->body }}
-                                        </div>
+                                        <div id="procomment-{{$comment->id}}"></div>
                                     </div>
-                                    <div id="comment-{{$comment->id}}"></div>
-                                </div>
                                 @endif
 
                                 @foreach($comment->children as $commentchildren)
@@ -190,7 +191,6 @@
                                                 {{ $commentchildren->body }}
                                             </div>
                                         </div>
-                                        <div id="comment-{{$commentchildren->id}}"></div>
                                     </div>
                                 @endforeach
 
@@ -300,19 +300,19 @@
                                 <li class="collection-header grey lighten-4">
                                     <h5 class="m-0">Related Properties</h5>
                                 </li>
-                                @foreach($relatedprop as $property)
+                                @foreach($relatedproperty as $property_related)
                                     <li class="collection-item p-0">
-                                        <a href="{{ route('property.show',$property->id) }}">
+                                        <a href="{{ route('property.show',$property_related->id) }}">
                                             <div class="card horizontal card-no-shadow m-0">
-                                                @if($property->image)
+                                                @if($property_related->image)
                                                 <div class="card-image">
-                                                    <img src="{{Storage::url('property/'.$property->image)}}" alt="{{$property->title}}" class="imgresponsive">
+                                                    <img src="{{Storage::url('property/'.$property_related->image)}}" alt="{{$property_related->title}}" class="imgresponsive">
                                                 </div>
                                                 @endif
                                                 <div class="card-stacked">
-                                                    <div class="p-l-10 p-r-10">
-                                                        <h6 title="{{$property->title}}">{{ str_limit( $property->title, 18 ) }}</h6>
-                                                        <strong>&dollar;{{$property->price}}</strong>
+                                                    <div class="p-l-10 p-r-10 indigo-text">
+                                                        <h6 title="{{$property_related->title}}">{{ str_limit( $property_related->title, 18 ) }}</h6>
+                                                        <strong>&dollar;{{$property_related->price}}</strong>
                                                     </div>
                                                 </div>
                                             </div>
@@ -368,12 +368,12 @@
             
 
             // COMMENT
-            $(document).on('click','span.right.replay',function(e){
+            $(document).on('click','#commentreplay',function(e){
                 e.preventDefault();
                 
                 var commentid = $(this).data('commentid');
 
-                $('#comment-'+commentid).empty().append(
+                $('#procomment-'+commentid).empty().append(
                     `<div class="comment-box">
                         <form action="{{ route('property.comment',$property->id) }}" method="POST">
                             @csrf
