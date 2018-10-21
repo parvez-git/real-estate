@@ -9,6 +9,9 @@
     <section class="section">
         <div class="container">
             <div class="row">
+                <h4 class="section-heading">Blog Posts</h4>
+            </div>
+            <div class="row">
 
                 <div class="col s12 m8">
 
@@ -63,7 +66,7 @@
 
 
                     <div class="m-t-30 m-b-60 center">
-                        {{ $posts->links() }}
+                        {{ $posts->appends(['month' => Request::get('month'), 'year' => Request::get('year')])->links() }}
                     </div>
         
                 </div>

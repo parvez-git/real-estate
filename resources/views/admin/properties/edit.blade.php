@@ -158,14 +158,6 @@
                         @endforeach
                     </div>
 
-                    <div class="form-group form-float">
-                        <div class="form-line">
-                            <input type="text" class="form-control" name="video" value="{{$property->video}}">
-                            <label class="form-label">Video</label>
-                        </div>
-                        <div class="help-info">Youtube Link</div>
-                    </div>
-
                     <div class="clearfix">
                         <h5>Google Map</h5>
                         <div class="form-group">
@@ -182,6 +174,24 @@
                         </div>
                     </div>
 
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="header bg-indigo">
+                    <h2>PROPERTY VIDEO</h2>
+                </div>
+                <div class="body">
+                    <div class="form-group form-float">
+                        <div class="form-line">
+                            <input type="text" class="form-control" name="video" value="{{$property->video}}">
+                            <label class="form-label">Video</label>
+                        </div>
+                        <div class="help-info">Youtube Link</div>
+                    </div>
+                    <div class="embed-video center">
+                        {!! $videoembed !!}
+                    </div>
                 </div>
             </div>
 

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\Contact;
 
 use App\Property;
 use App\Message;
@@ -44,9 +46,11 @@ class PagesController extends Controller
                     ->where('id', '!=' , $property->id)
                     ->take(5)->get();
 
+        $videoembed = $this->convertYoutube($property->video, 560, 315);
+
         $cities = Property::select('city','city_slug')->distinct('city_slug')->get();
 
-        return view('pages.properties.single', compact('property','rating','relatedproperty','cities'));
+        return view('pages.properties.single', compact('property','rating','relatedproperty','videoembed','cities'));
     }
 
 
@@ -104,7 +108,7 @@ class PagesController extends Controller
     public function blogComments(Request $request, $id)
     {
         $request->validate([
-            'body'  => 'required',
+            'body'  => 'required'
         ]);
 
         $post = Post::find($id);
@@ -114,7 +118,7 @@ class PagesController extends Controller
                 'user_id'   => Auth::id(),
                 'body'      => $request->body,
                 'parent'    => $request->parent,
-                'parent_id' => $request->parent_id,
+                'parent_id' => $request->parent_id
             ]
         );
 
@@ -192,19 +196,37 @@ class PagesController extends Controller
     public function messageContact(Request $request)
     {
         $request->validate([
-            'agent_id'  => 'required',
             'name'      => 'required',
             'email'     => 'required',
             'phone'     => 'required',
             'message'   => 'required'
         ]);
 
-        Message::create($request->all());
+        $message  = $request->message;
+        $mailfrom = $request->email;
+        
+        Message::create([
+            'agent_id'  => 1,
+            'name'      => $request->name,
+            'email'     => $mailfrom,
+            'phone'     => $request->phone,
+            'message'   => $message
+        ]);
+            
+        $adminname  = User::find(1)->name;
+        $mailto     = $request->mailto;
+
+        Mail::to($mailto)->send(new Contact($message,$adminname,$mailfrom));
 
         if($request->ajax()){
             return response()->json(['message' => 'Message send successfully.']);
         }
 
+    }
+
+    public function contactMail(Request $request)
+    {
+        return $request->all();
     }
 
 
@@ -221,7 +243,7 @@ class PagesController extends Controller
     public function propertyComments(Request $request, $id)
     {
         $request->validate([
-            'body'  => 'required',
+            'body'  => 'required'
         ]);
 
         $property = Property::find($id);
@@ -231,7 +253,7 @@ class PagesController extends Controller
                 'user_id'   => Auth::id(),
                 'body'      => $request->body,
                 'parent'    => $request->parent,
-                'parent_id' => $request->parent_id,
+                'parent_id' => $request->parent_id
             ]
         );
 
@@ -267,6 +289,16 @@ class PagesController extends Controller
                         ->paginate(12);
 
         return view('pages.properties.property', compact('properties','cities'));
+    }
+
+
+    // YOUTUBE LINK TO EMBED CODE
+    private function convertYoutube($youtubelink, $w = 250, $h = 140) {
+        return preg_replace(
+            "/\s*[a-zA-Z\/\/:\.]*youtu(be.com\/watch\?v=|.be\/)([a-zA-Z0-9\-_]+)([a-zA-Z0-9\/\*\-\_\?\&\;\%\=\.]*)/i",
+            "<iframe width=\"$w\" height=\"$h\" src=\"//www.youtube.com/embed/$2\" frameborder=\"0\" allowfullscreen></iframe>",
+            $youtubelink
+        );
     }
     
 }

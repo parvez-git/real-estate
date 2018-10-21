@@ -14,7 +14,7 @@
 
                     <h2 class="sidebar-title">search property</h2>
 
-                    <form class="sidebar-search" action="{{ route('search-sidebar')}}" method="GET">
+                    <form class="sidebar-search" action="{{ route('search')}}" method="GET">
 
                         <div class="searchbar">
                             <div class="input-field col s12">
@@ -158,7 +158,20 @@
 
 
                     <div class="m-t-30 m-b-60 center">
-                        {{ $properties->links() }}
+                        {{ 
+                            $properties->appends([
+                                'city'      => Request::get('city'),
+                                'type'      => Request::get('type'),
+                                'purpose'   => Request::get('purpose'),
+                                'bedroom'   => Request::get('bedroom'),
+                                'bathroom'  => Request::get('bathroom'),
+                                'minprice'  => Request::get('minprice'),
+                                'maxprice'  => Request::get('maxprice'),
+                                'minarea'   => Request::get('minarea'),
+                                'maxarea'   => Request::get('maxarea'),
+                                'featured'  => Request::get('featured')
+                            ])->links() 
+                        }}
                     </div>
         
                 </div>

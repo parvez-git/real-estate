@@ -59,8 +59,10 @@
 
                     @else 
                         {{-- MAIL FORM --}}
-                        <form action="" method="POST">
+                        <form action="{{ route('admin.message.mail') }}" method="POST">
                             @csrf
+                            <input type="hidden" name="name" value="{{ $message->name }}">
+                            <input type="hidden" name="mailfrom" value="{{ auth()->user()->email }}">
 
                             <div class="form-group form-float">
                                 <div class="form-line">

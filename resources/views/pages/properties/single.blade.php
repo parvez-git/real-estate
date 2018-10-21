@@ -132,6 +132,17 @@
                         </div>
                     </div>
 
+                    @if($videoembed)
+                        <div class="card-no-box-shadow card">
+                            <div class="p-15 grey lighten-4">
+                                <h5 class="m-0">Video</h5>
+                            </div>
+                            <div class="card-image center m-t-10">
+                                {!! $videoembed !!}
+                            </div>
+                        </div>
+                    @endif
+
                     <div class="card-no-box-shadow card">
                         <div class="p-15 grey lighten-4">
                             <h5 class="m-0">Near By</h5>

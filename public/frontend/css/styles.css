@@ -219,6 +219,34 @@ nav .brand-logo i{
     border-left: 2px groove #2f3f9f;
 }
 
+/**** HEADING STYLE ****/
+.section-heading{
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 28px;
+    font-weight: bold;
+    margin-top: 50px;
+    margin-bottom: 30px;
+    color: #464646;
+}
+.contact-title{
+    text-transform: uppercase;
+    font-size: 28px;
+    font-weight: bold;
+    margin-top: 50px;
+    margin-bottom: 30px;
+}
+h5.m-0 {
+    font-size: 15px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+h4.single-title {
+    text-transform: uppercase;
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
 /**** PAGINATION ****/
 .pagination li.page-item.active {
     background-color: #2f3f9f;
@@ -414,6 +442,7 @@ h2.sidebar-title {
     text-transform: uppercase;
     font-size: 24px;
     margin-left: 15px;
+    font-weight: bold;
 }
 .sidebar-search .searchbar{
     margin-top: 0;
@@ -435,9 +464,6 @@ h2.sidebar-title {
     font-weight: bold;
 }
 
-span.search-title a{
-    color: #808080;
-}
 .featured-stars i{
     font-size: 1rem;
     padding-top: 5px;

@@ -10,7 +10,7 @@
         <div class="container">
             
             <div class="row">
-                <h4 class="center">Properties</h4>
+                <h4 class="section-heading">Properties</h4>
             </div>
 
             <div class="row">

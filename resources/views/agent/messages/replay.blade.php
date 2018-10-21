@@ -20,7 +20,6 @@
                     <h4 class="agent-title">REPLAY MESSAGES</h4>
                     
                     <div class="agent-content">
-                        
                         @if($message->user_id)
                             <form action="{{route('agent.message.send')}}" method="POST">
                                 @csrf
@@ -41,7 +40,7 @@
                                         <label for="phone">Phone</label>
                                     </div>
                                 </div>
-    
+
                                 <div class="row">
                                     <div class="input-field col s12">
                                         <i class="material-icons prefix">mode_edit</i>
@@ -49,7 +48,7 @@
                                         <label for="message">Message</label>
                                     </div>
                                 </div>
-    
+
                                 <div class="row">
                                     <button class="btn waves-effect waves-light btn-small indigo darken-4 right" type="submit">
                                         <span>SEND</span>
@@ -57,10 +56,11 @@
                                     </button>
                                 </div>
                             </form>
-
-                        @else
-                            <form action="" method="POST">
+                        @else 
+                            <form action="{{route('agent.message.mail')}}" method="POST">
                                 @csrf
+                                <input type="hidden" name="name" value="{{ $message->name }}">
+                                <input type="hidden" name="mailfrom" value="{{ auth()->user()->email }}">
 
                                 <div class="row">
                                     <div class="input-field col s12">
@@ -77,22 +77,21 @@
                                         <label for="subject">Subject</label>
                                     </div>
                                 </div>
-    
+
                                 <div class="row">
                                     <div class="input-field col s12">
                                         <i class="material-icons prefix">mode_edit</i>
-                                        <textarea id="message-mail" name="message" class="materialize-textarea"></textarea>
+                                        <textarea id="message" name="message" class="materialize-textarea"></textarea>
                                         <label for="message">Message</label>
                                     </div>
                                 </div>
-    
+
                                 <div class="row">
                                     <button class="btn waves-effect waves-light btn-small indigo darken-4 right" type="submit">
                                         <span>SEND</span>
                                         <i class="material-icons right">send</i>
                                     </button>
                                 </div>
-    
                             </form>
                         @endif
 

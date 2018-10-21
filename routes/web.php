@@ -5,7 +5,6 @@ Route::get('/', 'FrontpageController@index')->name('home');
 Route::get('/slider', 'FrontpageController@slider')->name('slider.index');
 
 Route::get('/search', 'FrontpageController@search')->name('search');
-Route::get('/search-sidebar', 'FrontpageController@searchSidebar')->name('search-sidebar');
 
 Route::get('/property', 'PagesController@properties')->name('property');
 Route::get('/property/{id}', 'PagesController@propertieshow')->name('property.show');
@@ -64,6 +63,7 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin','middleware'=>['auth','admi
     Route::post('message/replay','DashboardController@messageSend')->name('message.send');
     Route::post('message/readunread','DashboardController@messageReadUnread')->name('message.readunread');
     Route::delete('message/delete/{id}','DashboardController@messageDelete')->name('messages.destroy');
+    Route::post('message/mail', 'DashboardController@contactMail')->name('message.mail');
 
     Route::get('changepassword','DashboardController@changePassword')->name('changepassword');
     Route::post('changepassword','DashboardController@changePasswordUpdate')->name('changepassword.update');
@@ -86,6 +86,7 @@ Route::group(['prefix'=>'agent','namespace'=>'Agent','middleware'=>['auth','agen
     Route::post('message/replay','DashboardController@messageSend')->name('message.send');
     Route::post('message/readunread','DashboardController@messageReadUnread')->name('message.readunread');
     Route::delete('message/delete/{id}','DashboardController@messageDelete')->name('messages.destroy');
+    Route::post('message/mail', 'DashboardController@contactMail')->name('message.mail');
 
 });
 

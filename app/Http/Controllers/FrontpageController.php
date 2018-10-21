@@ -24,42 +24,8 @@ class FrontpageController extends Controller
     }
 
 
-    // SEARCH BAR (TOP)
     public function search(Request $request)
-    { 
-        
-        $city     = strtolower($request->city);
-        $type     = $request->type;
-        $purpose  = $request->purpose;
-        $bedroom  = $request->bedroom;
-        $maxprice = $request->maxprice;
-
-        $properties = Property::latest()->withCount('comments')
-                                ->when($city, function ($query, $city) {
-                                    return $query->where('city', '=', $city);
-                                })
-                                ->when($type, function ($query, $type) {
-                                    return $query->where('type', '=', $type);
-                                })
-                                ->when($purpose, function ($query, $purpose) {
-                                    return $query->where('purpose', '=', $purpose);
-                                })
-                                ->when($bedroom, function ($query, $bedroom) {
-                                    return $query->where('bedroom', '=', $bedroom);
-                                })
-                                ->when($maxprice, function ($query, $maxprice) {
-                                    return $query->where('price', '<=', $maxprice);
-                                })
-                                ->paginate(10); 
-
-        return view('pages.search', compact('properties'));
-    }
-
-
-    // SEARCH BAR (LEFT)
-    public function searchSidebar(Request $request)
     {
-
         $city     = strtolower($request->city);
         $type     = $request->type;
         $purpose  = $request->purpose;

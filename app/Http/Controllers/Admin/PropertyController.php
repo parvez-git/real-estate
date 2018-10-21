@@ -143,7 +143,9 @@ class PropertyController extends Controller
     {
         $property = Property::withCount('comments')->find($property->id);
 
-        return view('admin.properties.show',compact('property'));
+        $videoembed = $this->convertYoutube($property->video, 560, 315);
+
+        return view('admin.properties.show',compact('property','videoembed'));
     }
 
 
@@ -152,7 +154,9 @@ class PropertyController extends Controller
         $features = Feature::all();
         $property = Property::find($property->id);
 
-        return view('admin.properties.edit',compact('property','features'));
+        $videoembed = $this->convertYoutube($property->video);
+
+        return view('admin.properties.edit',compact('property','features','videoembed'));
     }
 
 
@@ -283,7 +287,7 @@ class PropertyController extends Controller
             Storage::disk('public')->delete('property/'.$property->floor_plan);
         }
 
-        // $property->delete();
+        $property->delete();
         
         $galleries = $property->gallery;
         if($galleries)
@@ -316,5 +320,14 @@ class PropertyController extends Controller
 
             return response()->json(['msg' => $gallaryimg]);
         }
+    }
+
+    // YOUTUBE LINK TO EMBED CODE
+    private function convertYoutube($youtubelink, $w = 250, $h = 140) {
+        return preg_replace(
+            "/\s*[a-zA-Z\/\/:\.]*youtu(be.com\/watch\?v=|.be\/)([a-zA-Z0-9\-_]+)([a-zA-Z0-9\/\*\-\_\?\&\;\%\=\.]*)/i",
+            "<iframe width=\"$w\" height=\"$h\" src=\"//www.youtube.com/embed/$2\" frameborder=\"0\" allowfullscreen></iframe>",
+            $youtubelink
+        );
     }
 }

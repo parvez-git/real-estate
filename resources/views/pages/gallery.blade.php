@@ -9,7 +9,7 @@
     <section class="section">
         <div class="container">
             <div class="row">
-                <h4 class="center">Gallery</h4>
+                <h4 class="section-heading">Gallery</h4>
             </div>
             <div class="row">
 

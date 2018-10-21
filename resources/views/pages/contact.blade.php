@@ -12,11 +12,11 @@
 
                 <div class="col s12 m8">
                     <div class="contact-content">
-                        <h4 class="contact-title uppercase">Contact Us</h4>
+                        <h4 class="contact-title">Contact Us</h4>
 
                         <form id="contact-us" action="" method="POST">
                             @csrf
-                            <input type="hidden" name="agent_id" value="1">
+                            <input type="hidden" name="mailto" value="{{ $contactsettings[0]['email'] }}">
 
                             @auth
                                 <input type="hidden" name="user_id" value="{{ auth()->id() }}">
@@ -132,7 +132,7 @@
                         }
                     },
                     error: function(xhr) {
-                        M.toast({html: xhr.statusText, classes: 'red darken-4'})
+                        M.toast({html: 'ERROR: Failed to send message!', classes: 'red darken-4'})
                     },
                     complete: function() {
                         $('form#contact-us')[0].reset();

@@ -82,6 +82,17 @@
             </div>
             @endif
 
+            @if($videoembed)
+            <div class="card">
+                <div class="header">
+                    <h2>PROPERTY VIDEO</h2>
+                </div>
+                <div class="body text-center">
+                    {!! $videoembed !!}
+                </div>
+            </div>
+            @endif
+
             @if(!$property->gallery->isEmpty())
             <div class="card">
                 <div class="header bg-red">

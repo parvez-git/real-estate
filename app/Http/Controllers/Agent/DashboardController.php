@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Agent;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
+use App\Mail\Contact;
 use Carbon\Carbon;
 use App\Property;
 use App\Message;
@@ -173,6 +175,19 @@ class DashboardController extends Controller
         $message->delete();
 
         Toastr::success('message', 'Message deleted successfully.');
+        return back();
+    }
+
+
+    public function contactMail(Request $request)
+    {
+        $message  = $request->message;
+        $name     = $request->name;
+        $mailfrom = $request->mailfrom;
+
+        Mail::to($request->email)->send(new Contact($message,$name,$mailfrom));
+
+        Toastr::success('message', 'Mail send successfully.');
         return back();
     }
 
