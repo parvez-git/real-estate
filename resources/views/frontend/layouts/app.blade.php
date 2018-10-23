@@ -11,8 +11,7 @@
     <title>{{ config('app.name', 'Laravel Real Estate') }}</title>
 
     <!-- Fonts -->
-    {{-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> --}}
-    <link href="{{ asset('frontend/css/material-icons.css') }}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     
     <!-- Styles -->
     <link href="{{ asset('frontend/css/materialize.min.css') }}" rel="stylesheet">

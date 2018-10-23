@@ -12,6 +12,9 @@
 .dropdown-toggle > img{
     border-radius: 50%;
 }
+.dropdown-menu ul.menu li {
+    list-style-type: none;
+}
 
 .addbtn{
     background-color: #303f9f;

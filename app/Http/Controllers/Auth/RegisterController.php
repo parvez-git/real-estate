@@ -29,7 +29,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo;
+    protected $redirectTo = '/login';
 
     /**
      * Create a new controller instance.
@@ -38,19 +38,6 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        if(Auth::check() && Auth::user()->role->id == 1 ){
-
-            $this->redirectTo = route('admin.dashboard');
-
-        }elseif(Auth::check() && Auth::user()->role->id == 2 ){
-
-            $this->redirectTo = route('agent.dashboard');
-
-        }elseif(Auth::check() && Auth::user()->role->id == 3 ){
-
-            $this->redirectTo = route('user.dashboard');
-        }
-        
         $this->middleware('guest');
     }
 
@@ -63,9 +50,9 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
+            'name'      => 'required|string|max:255',
+            'email'     => 'required|string|email|max:255|unique:users',
+            'password'  => 'required|string|min:6|confirmed',
         ]);
     }
 
@@ -77,16 +64,15 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $username = strtok($data['name'], " "); 
-        $roleid = isset($data['agent']) ? 2 : 3;
+        $username   = strtok($data['name'], " "); 
+        $roleid     = isset($data['agent']) ? 2 : 3;
 
         return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-
-            'username' => $username,
-            'role_id'  => $roleid
+            'name'      => $data['name'],
+            'email'     => $data['email'],
+            'password'  => Hash::make($data['password']),
+            'username'  => $username,
+            'role_id'   => $roleid
         ]);
     }
 }

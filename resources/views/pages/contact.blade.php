@@ -16,7 +16,7 @@
 
                         <form id="contact-us" action="" method="POST">
                             @csrf
-                            <input type="hidden" name="mailto" value="{{ $contactsettings[0]['email'] }}">
+                            <input type="hidden" name="mailto" value="{{ $contactsettings[0]['email'] ?? 'p4alam@gmail.com' }}">
 
                             @auth
                                 <input type="hidden" name="user_id" value="{{ auth()->id() }}">
