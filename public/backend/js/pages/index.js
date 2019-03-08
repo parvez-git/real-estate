@@ -9,9 +9,9 @@
         }
     });
 
-    initRealTimeChart();
-    initDonutChart();
-    initSparkline();
+    // initRealTimeChart();
+    // initDonutChart();
+    // initSparkline();
 });
 
 var realtime = 'on';
