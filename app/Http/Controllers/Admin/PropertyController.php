@@ -64,7 +64,7 @@ class PropertyController extends Controller
             if(!Storage::disk('public')->exists('property')){
                 Storage::disk('public')->makeDirectory('property');
             }
-            $propertyimage = Image::make($image)->save();
+            $propertyimage = Image::make($image)->stream();
             Storage::disk('public')->put('property/'.$imagename, $propertyimage);
 
         }
@@ -77,7 +77,7 @@ class PropertyController extends Controller
             if(!Storage::disk('public')->exists('property')){
                 Storage::disk('public')->makeDirectory('property');
             }
-            $propertyfloorplan = Image::make($floor_plan)->save();
+            $propertyfloorplan = Image::make($floor_plan)->stream();
             Storage::disk('public')->put('property/'.$imagefloorplan, $propertyfloorplan);
 
         }else{
@@ -127,7 +127,7 @@ class PropertyController extends Controller
                 if(!Storage::disk('public')->exists('property/gallery')){
                     Storage::disk('public')->makeDirectory('property/gallery');
                 }
-                $propertyimage = Image::make($images)->save();
+                $propertyimage = Image::make($images)->stream();
                 Storage::disk('public')->put('property/gallery/'.$galimage['name'], $propertyimage);
 
                 $property->gallery()->create($galimage);
@@ -194,7 +194,7 @@ class PropertyController extends Controller
             if(Storage::disk('public')->exists('property/'.$property->image)){
                 Storage::disk('public')->delete('property/'.$property->image);
             }
-            $propertyimage = Image::make($image)->save();
+            $propertyimage = Image::make($image)->stream();
             Storage::disk('public')->put('property/'.$imagename, $propertyimage);
 
         }else{
@@ -214,7 +214,7 @@ class PropertyController extends Controller
                 Storage::disk('public')->delete('property/'.$property->floor_plan);
             }
 
-            $propertyfloorplan = Image::make($floor_plan)->save();
+            $propertyfloorplan = Image::make($floor_plan)->stream();
             Storage::disk('public')->put('property/'.$imagefloorplan, $propertyfloorplan);
 
         }else{
@@ -263,7 +263,7 @@ class PropertyController extends Controller
                     if(!Storage::disk('public')->exists('property/gallery')){
                         Storage::disk('public')->makeDirectory('property/gallery');
                     }
-                    $propertyimage = Image::make($images)->save();
+                    $propertyimage = Image::make($images)->stream();
                     Storage::disk('public')->put('property/gallery/'.$galimage['name'], $propertyimage);
 
                     $property->gallery()->create($galimage);
