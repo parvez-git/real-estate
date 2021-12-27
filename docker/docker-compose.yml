@@ -1,0 +1,40 @@
+version: "3"
+
+services:
+    realestate:
+        image: realestate
+        build:
+            context: ../
+            dockerfile: docker/Dockerfile
+        container_name: realestate
+        env_file:
+          - ./.env-docker-realestate
+        volumes:
+            - ../:/app
+        networks:
+            - realestate.docker
+        ports:
+            - 8000:8000
+        depends_on:
+            db_realestate:
+                condition: service_healthy
+    db_realestate:
+        image: mysql:8.0
+        restart: always
+        container_name: realestate_mysql
+        env_file:
+          - ./.env-docker-mysql
+        ports:
+            - "3306:3306"
+        networks:
+            - realestate.docker
+        volumes:
+            - /var/lib/mysql-realestate:/var/lib/mysql
+        healthcheck:
+            test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+            timeout: 20s
+            retries: 10
+networks:
+    realestate.docker:
+        name: realestate.docker
+        external: false  
