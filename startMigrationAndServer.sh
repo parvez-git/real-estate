@@ -19,12 +19,10 @@ checkSuccess() {
     fi
 }
 
+#Genereate Artisan Key
+php artisan key:generate
+
 if [ x${FIRSTRUN} == "xyes" ]; then
-    if [ x${GENERATE} == "xyes" ]; then
-        echo "Generation Artisan Key"
-        php artisan key:generate
-        checkSuccess $?
-    fi
     if [ x${MIGRATE} == "xyes" ]; then
         echo "Runnign Artisan Migrate"
         php artisan migrate
