@@ -40,7 +40,7 @@ if [ x${FIRSTRUN} == "xyes" ]; then
         php artisan storage:link
         checkSuccess $?
     fi 
-    echo "FIRSTRUN=no\nGENERATE=no\nMIGRATE=no\nSEED=no\nLINK=no" > /app/docker/.env-docker-realestate
+    printf "FIRSTRUN=no\nGENERATE=no\nMIGRATE=no\nSEED=no\nLINK=no" > /app/docker/.env-docker-realestate
 fi
 
 

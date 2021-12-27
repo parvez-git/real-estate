@@ -48,6 +48,22 @@ REMS is a simple PHP script based on Laravel that helps you to manage small or m
 08. `php artisan storage:link`
 09. `php artisan serve`
 
+### Docker installation (MYSQL Only)
+01. 
+    Edit `docker/.env-docker-mysql` for MYSQL DB docker environment variables.
+    You can set your own database user, user password and database name.
+02.
+    Edit `docker/.env-docker-realestate` for you need.
+    If you will run it for first time all must be `yes`.
+    For subsequest runs you can set which one you neeed according to you DB status.
+    If any of them will be needed FIRSTRUN should alwasys be `yes`
+03. 
+    Use `docker/.env.example` as a source for your `.env` file of application
+    `./env.example` is not used in docker setup
+    Edit this file DB information according to what you have entered in `docker/.env-docker-mysql`
+04. 
+    Start application with `sudo docker-compose -f docker/docker-compose.yml up -d`
+
 #### Cridentials
 01. 
     Email: `admin@admin.com` 
